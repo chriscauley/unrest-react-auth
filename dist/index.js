@@ -24,7 +24,7 @@ var _default = {
   loginRequired: _loginRequired["default"],
   AuthModal: _Modal["default"],
   AuthNavLink: _NavLink["default"],
-  Routes: _Routes["default"],
+  AuthRoutes: _Routes["default"],
   withAuth: _withAuth["default"]
 };
 exports["default"] = _default;

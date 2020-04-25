@@ -33,7 +33,7 @@ var config = {
   login: {
     url: '/login/',
     next_url: '/login/:next',
-    post_url: '/api/login/',
+    post_url: '/api/auth/login/',
     schema: _objectSpread({
       title: 'Login To Continue'
     }, schema)
@@ -41,14 +41,14 @@ var config = {
   signup: {
     url: '/signup/',
     next_url: '/signup/:next',
-    post_url: '/api/signup/',
+    post_url: '/api/auth/signup/',
     schema: _objectSpread({
       title: 'Signup To Continue'
     }, schema)
   },
   logout: {
     url: '/logout/',
-    post_url: '/api/logout/'
+    post_url: '/api/auth/logout/'
   }
 };
 var _default = config;

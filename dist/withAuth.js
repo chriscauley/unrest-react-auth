@@ -9,7 +9,7 @@ var _reactRestHook = _interopRequireDefault(require("@unrest/react-rest-hook"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var _default = (0, _reactRestHook["default"])('/api/user.json', {
+var _default = (0, _reactRestHook["default"])('/api/auth/user.json', {
   propName: 'auth'
 });
 

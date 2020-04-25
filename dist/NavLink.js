@@ -7,6 +7,8 @@ exports["default"] = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _reactRouterDom = require("react-router-dom");
+
 var _css = _interopRequireDefault(require("@unrest/css"));
 
 var _config = _interopRequireDefault(require("./config"));
@@ -112,11 +114,11 @@ var _default = (0, _withAuth["default"])(function (props) {
   return user ? /*#__PURE__*/_react["default"].createElement(UserDropdown, {
     user: user,
     refetch: refetch
-  }) : /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, null, /*#__PURE__*/_react["default"].createElement("a", {
-    href: next('login'),
+  }) : /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, null, /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Link, {
+    to: next('login'),
     className: _css["default"].button.light()
-  }, "Login"), /*#__PURE__*/_react["default"].createElement("a", {
-    href: next('signup'),
+  }, "Login"), /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Link, {
+    to: next('signup'),
     className: _css["default"].button.light()
   }, "Sign Up"));
 });

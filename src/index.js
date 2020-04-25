@@ -2,7 +2,7 @@ import config from './config'
 import loginRequired from './loginRequired'
 import AuthModal from './Modal'
 import AuthNavLink from './NavLink'
-import Routes from './Routes'
+import AuthRoutes from './Routes'
 import withAuth from './withAuth'
 
 export default {
@@ -10,6 +10,6 @@ export default {
   loginRequired,
   AuthModal,
   AuthNavLink,
-  Routes,
+  AuthRoutes,
   withAuth,
 }

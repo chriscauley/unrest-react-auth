@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom'
 import css from '@unrest/css'
 
 import config from './config'
@@ -41,12 +41,12 @@ export default withAuth((props) => {
     <UserDropdown user={user} refetch={refetch} />
   ) : (
     <>
-      <a href={next('login')} className={css.button.light()}>
+      <Link to={next('login')} className={css.button.light()}>
         Login
-      </a>
-      <a href={next('signup')} className={css.button.light()}>
+      </Link>
+      <Link to={next('signup')} className={css.button.light()}>
         Sign Up
-      </a>
+      </Link>
     </>
   )
 })
