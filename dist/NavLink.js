@@ -41,13 +41,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var dropdown = _css["default"].CSS({
-  shelf: 'border p-4 absolute right-0 top-100 bg-white min-w-full z-10',
-  toggle: _css["default"].button('cursor-pointer'),
-  outer: 'relative',
-  item: 'cursor-pointer'
-});
-
 var UserDropdown = /*#__PURE__*/function (_React$Component) {
   _inherits(UserDropdown, _React$Component);
 
@@ -86,14 +79,14 @@ var UserDropdown = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var user = this.props.user;
       return /*#__PURE__*/_react["default"].createElement("div", {
-        className: dropdown.outer()
+        className: _css["default"].dropdown.outer()
       }, /*#__PURE__*/_react["default"].createElement("div", {
-        className: dropdown.toggle(),
+        className: _css["default"].dropdown.toggle(),
         onClick: this.toggle
       }, user.username), /*#__PURE__*/_react["default"].createElement("div", {
-        className: dropdown.shelf(this.state.open ? 'block' : 'hidden')
+        className: _css["default"].dropdown.shelf(this.state.open ? 'block' : 'hidden')
       }, /*#__PURE__*/_react["default"].createElement("div", {
-        className: dropdown.item(),
+        className: _css["default"].dropdown.item(),
         onClick: this.logout
       }, "Logout")));
     }

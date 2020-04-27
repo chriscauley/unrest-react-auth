@@ -5,13 +5,6 @@ import css from '@unrest/css'
 import config from './config'
 import withAuth from './withAuth'
 
-const dropdown = css.CSS({
-  shelf: 'border p-4 absolute right-0 top-100 bg-white min-w-full z-10',
-  toggle: css.button('cursor-pointer'),
-  outer: 'relative',
-  item: 'cursor-pointer',
-})
-
 class UserDropdown extends React.Component {
   state = {}
   toggle = () => this.setState({ open: !this.state.open })
@@ -20,12 +13,12 @@ class UserDropdown extends React.Component {
   render() {
     const { user } = this.props
     return (
-      <div className={dropdown.outer()}>
-        <div className={dropdown.toggle()} onClick={this.toggle}>
+      <div className={css.dropdown.outer()}>
+        <div className={css.dropdown.toggle()} onClick={this.toggle}>
           {user.username}
         </div>
-        <div className={dropdown.shelf(this.state.open ? 'block' : 'hidden')}>
-          <div className={dropdown.item()} onClick={this.logout}>
+        <div className={css.dropdown.shelf(this.state.open ? 'block' : 'hidden')}>
+          <div className={css.dropdown.item()} onClick={this.logout}>
             Logout
           </div>
         </div>
