@@ -49,7 +49,8 @@ var config = {
   logout: {
     url: '/logout/',
     post_url: '/api/auth/logout/'
-  }
+  },
+  postAuth: function postAuth() {}
 };
 var _default = config;
 exports["default"] = _default;

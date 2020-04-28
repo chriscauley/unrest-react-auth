@@ -32,6 +32,7 @@ const config = {
     url: '/logout/',
     post_url: '/api/auth/logout/',
   },
+  postAuth: () => {},
 }
 
 export default config
