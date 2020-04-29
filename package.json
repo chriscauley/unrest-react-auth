@@ -8,7 +8,7 @@
   "license": "MIT",
   "scripts": {
     "build": "babel src -d dist",
-    "lint": "yarn eslint __tests__/ src/",
+    "lint": "yarn eslint src/",
     "test": "yarn jest",
     "develop": "yarn parcel docs/index.html"
   },

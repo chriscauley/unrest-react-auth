@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.SignupModal = exports.LoginModal = exports["default"] = void 0;
+exports.SignupModal = exports.LoginModal = exports["default"] = exports.RouterModal = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -24,6 +24,8 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -47,15 +49,31 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var BaseModal = /*#__PURE__*/function (_React$Component) {
-  _inherits(BaseModal, _React$Component);
+var RouterModal = (0, _reactRouterDom.withRouter)(function (props) {
+  var back = function back() {
+    return props.history.goBack();
+  };
 
-  var _super = _createSuper(BaseModal);
+  return /*#__PURE__*/_react["default"].createElement("div", {
+    className: _css["default"].modal.outer()
+  }, /*#__PURE__*/_react["default"].createElement("div", {
+    onClick: back,
+    className: _css["default"].modal.mask()
+  }), /*#__PURE__*/_react["default"].createElement("div", {
+    className: _css["default"].modal.content()
+  }, props.children));
+});
+exports.RouterModal = RouterModal;
 
-  function BaseModal() {
+var BaseAuthModal = /*#__PURE__*/function (_React$Component) {
+  _inherits(BaseAuthModal, _React$Component);
+
+  var _super = _createSuper(BaseAuthModal);
+
+  function BaseAuthModal() {
     var _this;
 
-    _classCallCheck(this, BaseModal);
+    _classCallCheck(this, BaseAuthModal);
 
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
@@ -68,9 +86,7 @@ var BaseModal = /*#__PURE__*/function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "getOptions", function () {
-      var _this$props$slug = _this.props.slug,
-          slug = _this$props$slug === void 0 ? _this.state.slug : _this$props$slug;
-      return _config["default"][slug];
+      return _config["default"][_this.props.slug];
     });
 
     _defineProperty(_assertThisInitialized(_this), "onSubmit", function (formData) {
@@ -94,47 +110,44 @@ var BaseModal = /*#__PURE__*/function (_React$Component) {
     return _this;
   }
 
-  _createClass(BaseModal, [{
+  _createClass(BaseAuthModal, [{
     key: "render",
     value: function render() {
-      var _this2 = this;
-
       if (this.props.auth.user) {
         return /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Redirect, {
           to: this.getNext()
         });
       }
 
+      var is_login = this.props.slug === 'login';
+      var _link = {
+        to: _config["default"].makeUrl(is_login ? 'signup' : 'login', this.getNext()),
+        children: is_login ? 'Signup' : 'Login'
+      };
+
       var _this$getOptions = this.getOptions(),
           schema = _this$getOptions.schema;
 
-      return /*#__PURE__*/_react["default"].createElement("div", {
-        className: _css["default"].modal.outer()
-      }, /*#__PURE__*/_react["default"].createElement("div", {
-        onClick: function onClick() {
-          return _this2.props.history.goBack();
-        },
-        className: _css["default"].modal.mask()
-      }), /*#__PURE__*/_react["default"].createElement("div", {
-        className: _css["default"].modal.content()
-      }, /*#__PURE__*/_react["default"].createElement(_reactJsonschemaForm["default"], {
+      return /*#__PURE__*/_react["default"].createElement(RouterModal, null, /*#__PURE__*/_react["default"].createElement(_reactJsonschemaForm["default"], {
         schema: schema,
         onSubmit: this.onSubmit,
         onSuccess: this.onSuccess
-      }), this.props.slug === 'login' ? /*#__PURE__*/_react["default"].createElement("div", null, "Don't have an account? ", /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Link, {
+      }), /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Link, _extends({
+        replace: true
+      }, _link, {
+        className: _css["default"].link('mr-2')
+      })), /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Link, {
         replace: true,
-        to: _config["default"].makeUrl('signup', this.getNext())
-      }, "Signup")) : /*#__PURE__*/_react["default"].createElement("div", null, 'Already have an account?', /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Link, {
-        replace: true,
-        to: _config["default"].makeUrl('login', this.getNext())
-      }, "Login"))));
+        to: "/reset-password/",
+        className: _css["default"].link()
+      }, "Forgot Password?"));
     }
   }]);
 
-  return BaseModal;
+  return BaseAuthModal;
 }(_react["default"].Component);
 
-var Modal = (0, _reactRouterDom.withRouter)((0, _withAuth["default"])(BaseModal));
+var Modal = (0, _reactRouterDom.withRouter)((0, _withAuth["default"])(BaseAuthModal));
 var _default = Modal;
 exports["default"] = _default;
 

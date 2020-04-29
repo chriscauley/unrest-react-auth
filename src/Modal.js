@@ -7,14 +7,21 @@ import Form, { post } from '@unrest/react-jsonschema-form'
 import config from './config'
 import withAuth from './withAuth'
 
-class BaseModal extends React.Component {
+export const RouterModal = withRouter((props) => {
+  const back = () => props.history.goBack()
+  return (
+    <div className={css.modal.outer()}>
+      <div onClick={back} className={css.modal.mask()} />
+      <div className={css.modal.content()}>{props.children}</div>
+    </div>
+  )
+})
+
+class BaseAuthModal extends React.Component {
   state = {
     error: '',
   }
-  getOptions = () => {
-    const { slug = this.state.slug } = this.props
-    return config[slug]
-  }
+  getOptions = () => config[this.props.slug]
   onSubmit = (formData) => {
     return post(this.getOptions().post_url, formData).catch((error) =>
       this.setState({ error }),
@@ -30,44 +37,29 @@ class BaseModal extends React.Component {
     if (this.props.auth.user) {
       return <Redirect to={this.getNext()} />
     }
+    const is_login = this.props.slug === 'login'
+    const _link = {
+      to: config.makeUrl(is_login ? 'signup' : 'login', this.getNext()),
+      children: is_login ? 'Signup' : 'Login',
+    }
     const { schema } = this.getOptions()
     return (
-      <div className={css.modal.outer()}>
-        <div
-          onClick={() => this.props.history.goBack()}
-          className={css.modal.mask()}
+      <RouterModal>
+        <Form
+          schema={schema}
+          onSubmit={this.onSubmit}
+          onSuccess={this.onSuccess}
         />
-        <div className={css.modal.content()}>
-          <Form
-            schema={schema}
-            onSubmit={this.onSubmit}
-            onSuccess={this.onSuccess}
-          />
-          {this.props.slug === 'login' ? (
-            <div>
-              {"Don't have an account? "}
-              <Link
-                replace={true}
-                to={config.makeUrl('signup', this.getNext())}
-              >
-                Signup
-              </Link>
-            </div>
-          ) : (
-            <div>
-              {'Already have an account?'}
-              <Link replace={true} to={config.makeUrl('login', this.getNext())}>
-                Login
-              </Link>
-            </div>
-          )}
-        </div>
-      </div>
+        <Link replace={true} {..._link} className={css.link('mr-2')} />
+        <Link replace={true} to="/reset-password/" className={css.link()}>
+          Forgot Password?
+        </Link>
+      </RouterModal>
     )
   }
 }
 
-const Modal = withRouter(withAuth(BaseModal))
+const Modal = withRouter(withAuth(BaseAuthModal))
 
 export default Modal
 

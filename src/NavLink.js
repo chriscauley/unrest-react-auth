@@ -17,7 +17,9 @@ class UserDropdown extends React.Component {
         <div className={css.dropdown.toggle()} onClick={this.toggle}>
           {user.username}
         </div>
-        <div className={css.dropdown.shelf(this.state.open ? 'block' : 'hidden')}>
+        <div
+          className={css.dropdown.shelf(this.state.open ? 'block' : 'hidden')}
+        >
           <div className={css.dropdown.item()} onClick={this.logout}>
             Logout
           </div>
