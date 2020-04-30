@@ -43,6 +43,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var badge_css = "bg-red-500 text-white rounded-full ml-2 w-6 h-6 flex items-center justify-center";
 
+var slugify = function slugify(username) {
+  return username.includes('@') ? username.split('@')[0] + "@..." : username;
+};
+
 var UserDropdown = /*#__PURE__*/function (_React$Component) {
   _inherits(UserDropdown, _React$Component);
 
@@ -110,7 +114,7 @@ var UserDropdown = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/_react["default"].createElement("div", {
         className: _css["default"].dropdown.toggle('flex'),
         onClick: this.toggle
-      }, user.username, _badge ? /*#__PURE__*/_react["default"].createElement("span", {
+      }, slugify(user.username), _badge ? /*#__PURE__*/_react["default"].createElement("span", {
         className: badge_css
       }, _badge) : ""), /*#__PURE__*/_react["default"].createElement("div", {
         className: _css["default"].dropdown.shelf(this.state.open ? 'block' : 'hidden')

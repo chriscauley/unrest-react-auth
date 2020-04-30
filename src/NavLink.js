@@ -6,6 +6,10 @@ import config from './config'
 import withAuth from './withAuth'
 
 const badge_css = "bg-red-500 text-white rounded-full ml-2 w-6 h-6 flex items-center justify-center"
+const slugify = username => (
+  username.includes('@') ? (username.split('@')[0]+"@...") : username
+)
+
 
 class UserDropdown extends React.Component {
   state = {}
@@ -32,7 +36,7 @@ class UserDropdown extends React.Component {
     return (
       <div className={css.dropdown.outer()}>
         <div className={css.dropdown.toggle('flex')} onClick={this.toggle}>
-          {user.username}
+          {slugify(user.username)}
           {_badge ? <span className={badge_css}>{_badge}</span> : ""}
         </div>
         <div
