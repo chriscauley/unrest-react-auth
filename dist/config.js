@@ -50,7 +50,9 @@ var config = {
     url: '/logout/',
     post_url: '/api/auth/logout/'
   },
-  postAuth: function postAuth() {}
+  prepData: function prepData(data) {
+    return data;
+  }
 };
 var _default = config;
 exports["default"] = _default;

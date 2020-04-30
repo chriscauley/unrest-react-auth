@@ -13,7 +13,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 // this hook allow other state changes when auth is completed
 var prepData = function prepData(data) {
-  return _config["default"].postAuth(data);
+  return _config["default"].prepData(data);
 };
 
 var _default = (0, _reactRestHook["default"])('/api/auth/user.json', {
