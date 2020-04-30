@@ -13,10 +13,10 @@ class UserDropdown extends React.Component {
   logout = () => fetch(config.logout.post_url).then(() => this.props.refetch())
 
   render() {
-    const { user, badge } = this.props
+    const { user, badge, links=[] } = this.props
     const funct = value => typeof value === 'function' ? value(user) : value
     const _badge = funct(badge, badge)
-    const links = this.props.links.map(link => {
+    const processed_links = links.map(link => {
       link = funct(link)
       link.key = link.to
       if (link.badge) {
@@ -38,7 +38,7 @@ class UserDropdown extends React.Component {
         <div
           className={css.dropdown.shelf(this.state.open ? 'block' : 'hidden')}
         >
-          {links.map(link => (
+          {processed_links.map(link => (
           <div className={css.dropdown.item()} key={link.key}>
             <Link to={link.to}>{link.text}</Link>
           </div>

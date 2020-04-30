@@ -81,7 +81,9 @@ var UserDropdown = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this$props = this.props,
           user = _this$props.user,
-          badge = _this$props.badge;
+          badge = _this$props.badge,
+          _this$props$links = _this$props.links,
+          links = _this$props$links === void 0 ? [] : _this$props$links;
 
       var funct = function funct(value) {
         return typeof value === 'function' ? value(user) : value;
@@ -89,7 +91,7 @@ var UserDropdown = /*#__PURE__*/function (_React$Component) {
 
       var _badge = funct(badge, badge);
 
-      var links = this.props.links.map(function (link) {
+      var processed_links = links.map(function (link) {
         link = funct(link);
         link.key = link.to;
 
@@ -112,7 +114,7 @@ var UserDropdown = /*#__PURE__*/function (_React$Component) {
         className: badge_css
       }, _badge) : ""), /*#__PURE__*/_react["default"].createElement("div", {
         className: _css["default"].dropdown.shelf(this.state.open ? 'block' : 'hidden')
-      }, links.map(function (link) {
+      }, processed_links.map(function (link) {
         return /*#__PURE__*/_react["default"].createElement("div", {
           className: _css["default"].dropdown.item(),
           key: link.key
