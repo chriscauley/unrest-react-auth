@@ -41,6 +41,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+var badge_css = "bg-red-500 text-white rounded-full ml-2 w-6 h-6 flex items-center justify-center";
+
 var UserDropdown = /*#__PURE__*/function (_React$Component) {
   _inherits(UserDropdown, _React$Component);
 
@@ -77,15 +79,47 @@ var UserDropdown = /*#__PURE__*/function (_React$Component) {
   _createClass(UserDropdown, [{
     key: "render",
     value: function render() {
-      var user = this.props.user;
+      var _this$props = this.props,
+          user = _this$props.user,
+          badge = _this$props.badge;
+
+      var funct = function funct(value) {
+        return typeof value === 'function' ? value(user) : value;
+      };
+
+      var _badge = funct(badge, badge);
+
+      var links = this.props.links.map(function (link) {
+        link = funct(link);
+        link.key = link.to;
+
+        if (link.badge) {
+          link.text = /*#__PURE__*/_react["default"].createElement("div", {
+            className: "flex"
+          }, link.text, /*#__PURE__*/_react["default"].createElement("span", {
+            className: badge_css
+          }, link.badge));
+        }
+
+        return link;
+      }).filter(Boolean);
       return /*#__PURE__*/_react["default"].createElement("div", {
         className: _css["default"].dropdown.outer()
       }, /*#__PURE__*/_react["default"].createElement("div", {
-        className: _css["default"].dropdown.toggle(),
+        className: _css["default"].dropdown.toggle('flex'),
         onClick: this.toggle
-      }, user.username), /*#__PURE__*/_react["default"].createElement("div", {
+      }, user.username, _badge ? /*#__PURE__*/_react["default"].createElement("span", {
+        className: badge_css
+      }, _badge) : ""), /*#__PURE__*/_react["default"].createElement("div", {
         className: _css["default"].dropdown.shelf(this.state.open ? 'block' : 'hidden')
-      }, /*#__PURE__*/_react["default"].createElement("div", {
+      }, links.map(function (link) {
+        return /*#__PURE__*/_react["default"].createElement("div", {
+          className: _css["default"].dropdown.item(),
+          key: link.key
+        }, /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Link, {
+          to: link.to
+        }, link.text));
+      }), /*#__PURE__*/_react["default"].createElement("div", {
         className: _css["default"].dropdown.item(),
         onClick: this.logout
       }, "Logout")));
@@ -106,7 +140,9 @@ var _default = (0, _withAuth["default"])(function (props) {
 
   return user ? /*#__PURE__*/_react["default"].createElement(UserDropdown, {
     user: user,
-    refetch: refetch
+    refetch: refetch,
+    links: props.links,
+    badge: props.badge
   }) : /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, null, /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Link, {
     to: next('login'),
     className: _css["default"].button.light()
