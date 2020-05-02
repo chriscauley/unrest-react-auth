@@ -15,7 +15,7 @@ var _reactJsonschemaForm = _interopRequireWildcard(require("@unrest/react-jsonsc
 
 var _css = _interopRequireDefault(require("@unrest/css"));
 
-var _withAuth = _interopRequireDefault(require("./withAuth"));
+var _connect = _interopRequireDefault(require("./connect"));
 
 var _Modal = require("./Modal");
 
@@ -108,6 +108,6 @@ var ResetPasswordConfirm = /*#__PURE__*/function (_React$Component) {
   return ResetPasswordConfirm;
 }(_react["default"].Component);
 
-var _default = (0, _withAuth["default"])((0, _reactRouterDom.withRouter)(withSchema(ResetPasswordConfirm)));
+var _default = (0, _connect["default"])((0, _reactRouterDom.withRouter)(withSchema(ResetPasswordConfirm)));
 
 exports["default"] = _default;

@@ -4,7 +4,7 @@ import { withRouter, Link } from 'react-router-dom'
 import Form, { post } from '@unrest/react-jsonschema-form'
 import css from '@unrest/css'
 
-import withAuth from './withAuth'
+import connect from './connect'
 import { RouterModal } from './Modal'
 
 const url = '/api/schema/PasswordResetConfirmForm/'
@@ -44,4 +44,4 @@ class ResetPasswordConfirm extends React.Component {
   }
 }
 
-export default withAuth(withRouter(withSchema(ResetPasswordConfirm)))
+export default connect(withRouter(withSchema(ResetPasswordConfirm)))

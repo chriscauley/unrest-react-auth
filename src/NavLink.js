@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import css from '@unrest/css'
 
 import config from './config'
-import withAuth from './withAuth'
+import connect from './connect'
 
 const badge_css = "bg-red-500 text-white rounded-full ml-2 w-6 h-6 flex items-center justify-center"
 const slugify = username => (
@@ -56,7 +56,7 @@ class UserDropdown extends React.Component {
   }
 }
 
-export default withAuth((props) => {
+export default connect((props) => {
   const { user, refetch } = props.auth
   const next = (slug) => config.makeUrl(slug, window.location.pathname)
   return user ? (

@@ -1,15 +1,15 @@
 import config from './config'
-import loginRequired from './loginRequired'
+import required from './required'
 import AuthModal from './Modal'
 import AuthNavLink from './NavLink'
 import AuthRoutes from './Routes'
-import withAuth from './withAuth'
+import connect from './connect'
 
 export default {
   config,
-  loginRequired,
+  required,
   AuthModal,
   AuthNavLink,
   AuthRoutes,
-  withAuth,
+  connect,
 }

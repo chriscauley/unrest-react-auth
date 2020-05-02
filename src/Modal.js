@@ -5,7 +5,7 @@ import css from '@unrest/css'
 import Form, { post } from '@unrest/react-jsonschema-form'
 
 import config from './config'
-import withAuth from './withAuth'
+import connect from './connect'
 
 export const RouterModal = withRouter((props) => {
   const back = () => props.history.goBack()
@@ -59,7 +59,7 @@ class BaseAuthModal extends React.Component {
   }
 }
 
-const Modal = withRouter(withAuth(BaseAuthModal))
+const Modal = withRouter(connect(BaseAuthModal))
 
 export default Modal
 

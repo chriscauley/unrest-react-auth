@@ -13,7 +13,7 @@ var _css = _interopRequireDefault(require("@unrest/css"));
 
 var _config = _interopRequireDefault(require("./config"));
 
-var _withAuth = _interopRequireDefault(require("./withAuth"));
+var _connect = _interopRequireDefault(require("./connect"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -135,7 +135,7 @@ var UserDropdown = /*#__PURE__*/function (_React$Component) {
   return UserDropdown;
 }(_react["default"].Component);
 
-var _default = (0, _withAuth["default"])(function (props) {
+var _default = (0, _connect["default"])(function (props) {
   var _props$auth = props.auth,
       user = _props$auth.user,
       refetch = _props$auth.refetch;

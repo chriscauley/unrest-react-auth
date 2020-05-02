@@ -2,15 +2,15 @@ import React from 'react'
 import { Redirect, withRouter } from 'react-router-dom'
 
 import config from './config'
-import withAuth from './withAuth'
+import connect from './connect'
 
-export default (Component) => {
+export default (Component, AlternateComponent=Redirect) => {
   return withRouter(
-    withAuth((props) => {
+    connect((props) => {
       if (props.auth.user) {
         return <Component {...props} />
       }
-      return <Redirect to={config.makeUrl('login', props.location.pathname)} />
+      return <AlternateComponent to={config.makeUrl('login', props.location.pathname)} />
     }),
   )
 }

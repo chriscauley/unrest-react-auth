@@ -15,7 +15,7 @@ var _reactJsonschemaForm = _interopRequireWildcard(require("@unrest/react-jsonsc
 
 var _config = _interopRequireDefault(require("./config"));
 
-var _withAuth = _interopRequireDefault(require("./withAuth"));
+var _connect = _interopRequireDefault(require("./connect"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
@@ -147,7 +147,7 @@ var BaseAuthModal = /*#__PURE__*/function (_React$Component) {
   return BaseAuthModal;
 }(_react["default"].Component);
 
-var Modal = (0, _reactRouterDom.withRouter)((0, _withAuth["default"])(BaseAuthModal));
+var Modal = (0, _reactRouterDom.withRouter)((0, _connect["default"])(BaseAuthModal));
 var _default = Modal;
 exports["default"] = _default;
 
