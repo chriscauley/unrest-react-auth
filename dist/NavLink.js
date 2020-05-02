@@ -41,10 +41,10 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var badge_css = "bg-red-500 text-white rounded-full ml-2 w-6 h-6 flex items-center justify-center";
+var badge_css = 'bg-red-500 text-white rounded-full ml-2 w-6 h-6 flex items-center justify-center';
 
 var slugify = function slugify(username) {
-  return username.includes('@') ? username.split('@')[0] + "@..." : username;
+  return username.includes('@') ? username.split('@')[0] + '@...' : username;
 };
 
 var UserDropdown = /*#__PURE__*/function (_React$Component) {
@@ -116,7 +116,7 @@ var UserDropdown = /*#__PURE__*/function (_React$Component) {
         onClick: this.toggle
       }, slugify(user.username), _badge ? /*#__PURE__*/_react["default"].createElement("span", {
         className: badge_css
-      }, _badge) : ""), /*#__PURE__*/_react["default"].createElement("div", {
+      }, _badge) : ''), /*#__PURE__*/_react["default"].createElement("div", {
         className: _css["default"].dropdown.shelf(this.state.open ? 'block' : 'hidden')
       }, processed_links.map(function (link) {
         return /*#__PURE__*/_react["default"].createElement("div", {
@@ -141,7 +141,7 @@ var _default = (0, _connect["default"])(function (props) {
       refetch = _props$auth.refetch;
 
   var next = function next(slug) {
-    return _config["default"].makeUrl(slug, window.location.pathname);
+    return _config["default"].makeNextUrl(slug, window.location.pathname);
   };
 
   return user ? /*#__PURE__*/_react["default"].createElement(UserDropdown, {

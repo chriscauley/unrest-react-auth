@@ -13,6 +13,8 @@ var _css = _interopRequireDefault(require("@unrest/css"));
 
 var _reactJsonschemaForm = _interopRequireWildcard(require("@unrest/react-jsonschema-form"));
 
+var _reactRestHook = _interopRequireDefault(require("@unrest/react-rest-hook"));
+
 var _config = _interopRequireDefault(require("./config"));
 
 var _connect = _interopRequireDefault(require("./connect"));
@@ -64,6 +66,8 @@ var RouterModal = (0, _reactRouterDom.withRouter)(function (props) {
   }, props.children));
 });
 exports.RouterModal = RouterModal;
+var withLoginSchema = (0, _reactRestHook["default"])('/api/schema/LoginForm/');
+var withSignupSchema = (0, _reactRestHook["default"])('/api/schema/SignupForm/');
 
 var BaseAuthModal = /*#__PURE__*/function (_React$Component) {
   _inherits(BaseAuthModal, _React$Component);
@@ -85,12 +89,10 @@ var BaseAuthModal = /*#__PURE__*/function (_React$Component) {
       error: ''
     });
 
-    _defineProperty(_assertThisInitialized(_this), "getOptions", function () {
-      return _config["default"][_this.props.slug];
-    });
-
     _defineProperty(_assertThisInitialized(_this), "onSubmit", function (formData) {
-      return (0, _reactJsonschemaForm.post)(_this.getOptions().post_url, formData)["catch"](function (error) {
+      var url = _this.props.api.makeUrl();
+
+      return (0, _reactJsonschemaForm.post)(url, formData)["catch"](function (error) {
         return _this.setState({
           error: error
         });
@@ -113,21 +115,27 @@ var BaseAuthModal = /*#__PURE__*/function (_React$Component) {
   _createClass(BaseAuthModal, [{
     key: "render",
     value: function render() {
+      var _this$props$api = this.props.api,
+          loading = _this$props$api.loading,
+          makeUrl = _this$props$api.makeUrl,
+          schema = _this$props$api.schema;
+
+      if (loading) {
+        return null;
+      }
+
       if (this.props.auth.user) {
         return /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Redirect, {
           to: this.getNext()
         });
       }
 
-      var is_login = this.props.slug === 'login';
+      var url = makeUrl();
+      var is_login = url.includes('Login');
       var _link = {
-        to: _config["default"].makeUrl(is_login ? 'signup' : 'login', this.getNext()),
+        to: _config["default"].makeNextUrl(is_login ? 'signup' : 'login', this.getNext()),
         children: is_login ? 'Signup' : 'Login'
       };
-
-      var _this$getOptions = this.getOptions(),
-          schema = _this$getOptions.schema;
-
       return /*#__PURE__*/_react["default"].createElement(RouterModal, null, /*#__PURE__*/_react["default"].createElement(_reactJsonschemaForm["default"], {
         schema: schema,
         onSubmit: this.onSubmit,
@@ -150,19 +158,7 @@ var BaseAuthModal = /*#__PURE__*/function (_React$Component) {
 var Modal = (0, _reactRouterDom.withRouter)((0, _connect["default"])(BaseAuthModal));
 var _default = Modal;
 exports["default"] = _default;
-
-var LoginModal = function LoginModal() {
-  return /*#__PURE__*/_react["default"].createElement(Modal, {
-    slug: "login"
-  });
-};
-
+var LoginModal = withLoginSchema(Modal);
 exports.LoginModal = LoginModal;
-
-var SignupModal = function SignupModal() {
-  return /*#__PURE__*/_react["default"].createElement(Modal, {
-    slug: "signup"
-  });
-};
-
+var SignupModal = withSignupSchema(Modal);
 exports.SignupModal = SignupModal;

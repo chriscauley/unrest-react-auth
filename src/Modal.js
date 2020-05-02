@@ -3,6 +3,7 @@ import { Link, withRouter, Redirect } from 'react-router-dom'
 
 import css from '@unrest/css'
 import Form, { post } from '@unrest/react-jsonschema-form'
+import RestHook from '@unrest/react-rest-hook'
 
 import config from './config'
 import connect from './connect'
@@ -17,15 +18,16 @@ export const RouterModal = withRouter((props) => {
   )
 })
 
+const withLoginSchema = RestHook('/api/schema/LoginForm/')
+const withSignupSchema = RestHook('/api/schema/SignupForm/')
+
 class BaseAuthModal extends React.Component {
   state = {
     error: '',
   }
-  getOptions = () => config[this.props.slug]
   onSubmit = (formData) => {
-    return post(this.getOptions().post_url, formData).catch((error) =>
-      this.setState({ error }),
-    )
+    const url = this.props.api.makeUrl()
+    return post(url, formData).catch((error) => this.setState({ error }))
   }
   onSuccess = () => {
     this.props.auth.refetch()
@@ -34,15 +36,19 @@ class BaseAuthModal extends React.Component {
   getNext = () => decodeURIComponent(this.props.match.params.next || '')
 
   render() {
+    const { loading, makeUrl, schema } = this.props.api
+    if (loading) {
+      return null
+    }
     if (this.props.auth.user) {
       return <Redirect to={this.getNext()} />
     }
-    const is_login = this.props.slug === 'login'
+    const url = makeUrl()
+    const is_login = url.includes('Login')
     const _link = {
-      to: config.makeUrl(is_login ? 'signup' : 'login', this.getNext()),
+      to: config.makeNextUrl(is_login ? 'signup' : 'login', this.getNext()),
       children: is_login ? 'Signup' : 'Login',
     }
-    const { schema } = this.getOptions()
     return (
       <RouterModal>
         <Form
@@ -60,9 +66,5 @@ class BaseAuthModal extends React.Component {
 }
 
 const Modal = withRouter(connect(BaseAuthModal))
-
-export default Modal
-
-export const LoginModal = () => <Modal slug="login" />
-
-export const SignupModal = () => <Modal slug="signup" />
+export const LoginModal = withLoginSchema(Modal)
+export const SignupModal = withSignupSchema(Modal)
