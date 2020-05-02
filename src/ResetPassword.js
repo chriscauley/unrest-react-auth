@@ -5,7 +5,7 @@ import css from '@unrest/css'
 import Form, { post } from '@unrest/react-jsonschema-form'
 
 import { RouterModal } from './Modal'
-const url = '/api/auth/schema/PasswordResetForm/'
+const url = '/api/schema/PasswordResetForm/'
 const withSchema = RestHook(url)
 
 class ResetPassword extends React.Component {

@@ -49,7 +49,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var url = '/api/auth/schema/PasswordResetConfirmForm/';
+var url = '/api/schema/PasswordResetConfirmForm/';
 var withSchema = (0, _reactRestHook["default"])(url);
 
 var ResetPasswordConfirm = /*#__PURE__*/function (_React$Component) {

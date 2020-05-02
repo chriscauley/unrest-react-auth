@@ -7,7 +7,7 @@ import css from '@unrest/css'
 import withAuth from './withAuth'
 import { RouterModal } from './Modal'
 
-const url = '/api/auth/schema/PasswordResetConfirmForm/'
+const url = '/api/schema/PasswordResetConfirmForm/'
 const withSchema = RestHook(url)
 
 class ResetPasswordConfirm extends React.Component {
