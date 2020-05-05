@@ -1,58 +1,28 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { Dropdown } from '@unrest/react-core'
 import css from '@unrest/css'
 
 import config from './config'
 import connect from './connect'
 
-const badge_css =
-  'bg-red-500 text-white rounded-full ml-2 w-6 h-6 flex items-center justify-center'
-const slugify = (username) =>
-  username.includes('@') ? username.split('@')[0] + '@...' : username
+const slugify = (s) => (s.includes('@') ? s.split('@')[0] + '@...' : s)
 
 class UserDropdown extends React.Component {
   state = {}
-  toggle = () => this.setState({ open: !this.state.open })
   logout = () => fetch(config.logout.post_url).then(() => this.props.refetch())
 
   render() {
-    const { user, badge, links = [] } = this.props
+    const { user, links = [] } = this.props
     const funct = (value) => (typeof value === 'function' ? value(user) : value)
-    const _badge = funct(badge, badge)
-    const processed_links = links
-      .map((link) => {
-        link = funct(link)
-        link.key = link.to
-        if (link.badge) {
-          link.text = (
-            <div className="flex">
-              {link.text}
-              <span className={badge_css}>{link.badge}</span>
-            </div>
-          )
-        }
-        return link
-      })
-      .filter(Boolean)
+    const _links = [
+      ...links.map(funct),
+      { onClick: this.logout, children: 'Logout' },
+    ]
     return (
-      <div className={css.dropdown.outer()}>
-        <div className={css.dropdown.toggle('flex')} onClick={this.toggle}>
-          {slugify(user.username)}
-          {_badge ? <span className={badge_css}>{_badge}</span> : ''}
-        </div>
-        <div
-          className={css.dropdown.shelf(this.state.open ? 'block' : 'hidden')}
-        >
-          {processed_links.map((link) => (
-            <div className={css.dropdown.item()} key={link.key}>
-              <Link to={link.to}>{link.text}</Link>
-            </div>
-          ))}
-          <div className={css.dropdown.item()} onClick={this.logout}>
-            Logout
-          </div>
-        </div>
-      </div>
+      <Dropdown links={_links} badge={funct(this.props.badge)}>
+        {slugify(user.username)}
+      </Dropdown>
     )
   }
 }

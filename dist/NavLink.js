@@ -9,6 +9,8 @@ var _react = _interopRequireDefault(require("react"));
 
 var _reactRouterDom = require("react-router-dom");
 
+var _reactCore = require("@unrest/react-core");
+
 var _css = _interopRequireDefault(require("@unrest/css"));
 
 var _config = _interopRequireDefault(require("./config"));
@@ -18,6 +20,18 @@ var _connect = _interopRequireDefault(require("./connect"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -41,10 +55,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var badge_css = 'bg-red-500 text-white rounded-full ml-2 w-6 h-6 flex items-center justify-center';
-
-var slugify = function slugify(username) {
-  return username.includes('@') ? username.split('@')[0] + '@...' : username;
+var slugify = function slugify(s) {
+  return s.includes('@') ? s.split('@')[0] + '@...' : s;
 };
 
 var UserDropdown = /*#__PURE__*/function (_React$Component) {
@@ -65,12 +77,6 @@ var UserDropdown = /*#__PURE__*/function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "state", {});
 
-    _defineProperty(_assertThisInitialized(_this), "toggle", function () {
-      return _this.setState({
-        open: !_this.state.open
-      });
-    });
-
     _defineProperty(_assertThisInitialized(_this), "logout", function () {
       return fetch(_config["default"].logout.post_url).then(function () {
         return _this.props.refetch();
@@ -85,7 +91,6 @@ var UserDropdown = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this$props = this.props,
           user = _this$props.user,
-          badge = _this$props.badge,
           _this$props$links = _this$props.links,
           links = _this$props$links === void 0 ? [] : _this$props$links;
 
@@ -93,42 +98,15 @@ var UserDropdown = /*#__PURE__*/function (_React$Component) {
         return typeof value === 'function' ? value(user) : value;
       };
 
-      var _badge = funct(badge, badge);
+      var _links = [].concat(_toConsumableArray(links.map(funct)), [{
+        onClick: this.logout,
+        children: 'Logout'
+      }]);
 
-      var processed_links = links.map(function (link) {
-        link = funct(link);
-        link.key = link.to;
-
-        if (link.badge) {
-          link.text = /*#__PURE__*/_react["default"].createElement("div", {
-            className: "flex"
-          }, link.text, /*#__PURE__*/_react["default"].createElement("span", {
-            className: badge_css
-          }, link.badge));
-        }
-
-        return link;
-      }).filter(Boolean);
-      return /*#__PURE__*/_react["default"].createElement("div", {
-        className: _css["default"].dropdown.outer()
-      }, /*#__PURE__*/_react["default"].createElement("div", {
-        className: _css["default"].dropdown.toggle('flex'),
-        onClick: this.toggle
-      }, slugify(user.username), _badge ? /*#__PURE__*/_react["default"].createElement("span", {
-        className: badge_css
-      }, _badge) : ''), /*#__PURE__*/_react["default"].createElement("div", {
-        className: _css["default"].dropdown.shelf(this.state.open ? 'block' : 'hidden')
-      }, processed_links.map(function (link) {
-        return /*#__PURE__*/_react["default"].createElement("div", {
-          className: _css["default"].dropdown.item(),
-          key: link.key
-        }, /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Link, {
-          to: link.to
-        }, link.text));
-      }), /*#__PURE__*/_react["default"].createElement("div", {
-        className: _css["default"].dropdown.item(),
-        onClick: this.logout
-      }, "Logout")));
+      return /*#__PURE__*/_react["default"].createElement(_reactCore.Dropdown, {
+        links: _links,
+        badge: funct(this.props.badge)
+      }, slugify(user.username));
     }
   }]);
 

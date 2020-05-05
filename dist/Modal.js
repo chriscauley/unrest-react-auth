@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.SignupModal = exports.LoginModal = exports["default"] = exports.RouterModal = void 0;
+exports.SignupModal = exports.LoginModal = exports.RouterModal = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -156,8 +156,6 @@ var BaseAuthModal = /*#__PURE__*/function (_React$Component) {
 }(_react["default"].Component);
 
 var Modal = (0, _reactRouterDom.withRouter)((0, _connect["default"])(BaseAuthModal));
-var _default = Modal;
-exports["default"] = _default;
 var LoginModal = withLoginSchema(Modal);
 exports.LoginModal = LoginModal;
 var SignupModal = withSignupSchema(Modal);
