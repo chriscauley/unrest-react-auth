@@ -13,11 +13,11 @@
     "develop": "yarn parcel docs/index.html"
   },
   "peerDependencies": {
+    "@unrest/css": "chriscauley/unrest-css",
+    "@unrest/react-rest-hook": "chriscauley/unrest-react-rest-hook",
     "classnames": "^2.2.6",
     "react": ">=15",
-    "react-jsonschema-form": "^2.0.0-alpha.1",
-    "@unrest/react-rest-hook": "chriscauley/unrest-react-rest-hook",
-    "@unrest/css": "chriscauley/unrest-css"
+    "react-jsonschema-form": "^2.0.0-alpha.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
