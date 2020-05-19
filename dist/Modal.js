@@ -11,17 +11,15 @@ var _reactRouterDom = require("react-router-dom");
 
 var _css = _interopRequireDefault(require("@unrest/css"));
 
-var _reactJsonschemaForm = _interopRequireWildcard(require("@unrest/react-jsonschema-form"));
+var _reactJsonschemaForm = _interopRequireDefault(require("@unrest/react-jsonschema-form"));
+
+var _core = require("@unrest/core");
 
 var _reactRestHook = _interopRequireDefault(require("@unrest/react-rest-hook"));
 
 var _config = _interopRequireDefault(require("./config"));
 
 var _connect = _interopRequireDefault(require("./connect"));
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -92,7 +90,7 @@ var BaseAuthModal = /*#__PURE__*/function (_React$Component) {
     _defineProperty(_assertThisInitialized(_this), "onSubmit", function (formData) {
       var url = _this.props.api.makeUrl();
 
-      return (0, _reactJsonschemaForm.post)(url, formData)["catch"](function (error) {
+      return (0, _core.post)(url, formData)["catch"](function (error) {
         return _this.setState({
           error: error
         });

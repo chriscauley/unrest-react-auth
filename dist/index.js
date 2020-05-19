@@ -20,8 +20,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 var _default = {
   config: _config["default"],
   required: _required["default"],
-  AuthNavLink: _NavLink["default"],
-  AuthRoutes: _Routes["default"],
+  NavLink: _NavLink["default"],
+  Routes: _Routes["default"],
   connect: _connect["default"]
 };
 exports["default"] = _default;

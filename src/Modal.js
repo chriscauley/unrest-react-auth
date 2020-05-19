@@ -2,7 +2,8 @@ import React from 'react'
 import { Link, withRouter, Redirect } from 'react-router-dom'
 
 import css from '@unrest/css'
-import Form, { post } from '@unrest/react-jsonschema-form'
+import Form from '@unrest/react-jsonschema-form'
+import { post } from '@unrest/core'
 import RestHook from '@unrest/react-rest-hook'
 
 import config from './config'

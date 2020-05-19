@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Dropdown } from '@unrest/react-core'
+import { Dropdown } from '@unrest/core'
 import css from '@unrest/css'
 
 import config from './config'

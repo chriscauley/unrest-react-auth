@@ -9,7 +9,7 @@ var _react = _interopRequireDefault(require("react"));
 
 var _reactRouterDom = require("react-router-dom");
 
-var _reactCore = require("@unrest/react-core");
+var _core = require("@unrest/core");
 
 var _css = _interopRequireDefault(require("@unrest/css"));
 
@@ -103,7 +103,7 @@ var UserDropdown = /*#__PURE__*/function (_React$Component) {
         children: 'Logout'
       }]);
 
-      return /*#__PURE__*/_react["default"].createElement(_reactCore.Dropdown, {
+      return /*#__PURE__*/_react["default"].createElement(_core.Dropdown, {
         links: _links,
         badge: funct(this.props.badge)
       }, slugify(user.username));

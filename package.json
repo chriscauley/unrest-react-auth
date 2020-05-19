@@ -36,10 +36,6 @@
     "eslint-plugin-react": "^7.19.0",
     "jest": "^25.3.0",
     "parcel": "^1.12.4",
-    "prettier": "^2.0.4",
-    "react": ">=15",
-    "react-dom": "^16.13.1",
-    "react-jsonschema-form": "^2.0.0-alpha.1",
-    "react-test-renderer": "^16.13.1"
+    "prettier": "^2.0.4"
   }
 }
