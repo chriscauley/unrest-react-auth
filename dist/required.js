@@ -22,7 +22,7 @@ var _default = function _default(Component) {
       return /*#__PURE__*/_react["default"].createElement(Component, props);
     }
 
-    return /*#__PURE__*/_react["default"].createElement(Alternate, {
+    return props.auth.loading ? null : /*#__PURE__*/_react["default"].createElement(Alternate, {
       to: _config["default"].makeNextUrl('login', props.location.pathname)
     });
   }));
