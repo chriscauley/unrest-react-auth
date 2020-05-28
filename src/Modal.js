@@ -46,12 +46,27 @@ class BaseAuthModal extends React.Component {
     }
     const url = makeUrl()
     const is_login = url.includes('Login')
+    const verb = is_login ? 'Login' : 'Signup'
     const _link = {
       to: config.makeNextUrl(is_login ? 'signup' : 'login', this.getNext()),
       children: is_login ? 'Signup' : 'Login',
     }
+    const social_links = config.social.map((social) => {
+      social.slug = social.slug || social.name.toLowerCase()
+      social.href = `/login/${social.slug}/?next=${this.getNext()}`
+      social.className = css.button.base('login-button btn-' + social.slug)
+      return social
+    })
     return (
       <RouterModal>
+        <h2 className={css.h2()}>Please {verb} to continue</h2>
+        {social_links.map(({ name, slug, className, href }) => (
+          <a href={href} className={className} key={slug}>
+            <i className={css.icon(slug)} />
+            {verb} using {name}
+          </a>
+        ))}
+        {social_links.length > 0 && <div className="divider">or</div>}
         <Form
           schema={schema}
           onSubmit={this.onSubmit}

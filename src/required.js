@@ -10,8 +10,8 @@ export default (Component, Alternate = Redirect) => {
       if (props.auth.user) {
         return <Component {...props} />
       }
-      return (
-        props.auth.loading ? null : <Alternate to={config.makeNextUrl('login', props.location.pathname)} />
+      return props.auth.loading ? null : (
+        <Alternate to={config.makeNextUrl('login', props.location.pathname)} />
       )
     }),
   )

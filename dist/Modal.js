@@ -113,6 +113,8 @@ var BaseAuthModal = /*#__PURE__*/function (_React$Component) {
   _createClass(BaseAuthModal, [{
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       var _this$props$api = this.props.api,
           loading = _this$props$api.loading,
           makeUrl = _this$props$api.makeUrl,
@@ -130,11 +132,36 @@ var BaseAuthModal = /*#__PURE__*/function (_React$Component) {
 
       var url = makeUrl();
       var is_login = url.includes('Login');
+      var verb = is_login ? 'Login' : 'Signup';
       var _link = {
         to: _config["default"].makeNextUrl(is_login ? 'signup' : 'login', this.getNext()),
         children: is_login ? 'Signup' : 'Login'
       };
-      return /*#__PURE__*/_react["default"].createElement(RouterModal, null, /*#__PURE__*/_react["default"].createElement(_reactJsonschemaForm["default"], {
+
+      var social_links = _config["default"].social.map(function (social) {
+        social.slug = social.slug || social.name.toLowerCase();
+        social.href = "/login/".concat(social.slug, "/?next=").concat(_this2.getNext());
+        social.className = _css["default"].button.base('login-button btn-' + social.slug);
+        return social;
+      });
+
+      return /*#__PURE__*/_react["default"].createElement(RouterModal, null, /*#__PURE__*/_react["default"].createElement("h2", {
+        className: _css["default"].h2()
+      }, "Please ", verb, " to continue"), social_links.map(function (_ref) {
+        var name = _ref.name,
+            slug = _ref.slug,
+            className = _ref.className,
+            href = _ref.href;
+        return /*#__PURE__*/_react["default"].createElement("a", {
+          href: href,
+          className: className,
+          key: slug
+        }, /*#__PURE__*/_react["default"].createElement("i", {
+          className: _css["default"].icon(slug)
+        }), verb, " using ", name);
+      }), social_links.length > 0 && /*#__PURE__*/_react["default"].createElement("div", {
+        className: "divider"
+      }, "or"), /*#__PURE__*/_react["default"].createElement(_reactJsonschemaForm["default"], {
         schema: schema,
         onSubmit: this.onSubmit,
         onSuccess: this.onSuccess

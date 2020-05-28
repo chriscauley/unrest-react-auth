@@ -10,7 +10,8 @@
     "build": "rm -rf dist && yarn babel src -d dist",
     "lint": "yarn eslint src/",
     "test": "yarn jest",
-    "develop": "yarn parcel docs/index.html"
+    "develop": "yarn parcel docs/index.html",
+    "watch": "yarn babel src -d dist -w"
   },
   "peerDependencies": {
     "@unrest/css": "chriscauley/unrest-css",

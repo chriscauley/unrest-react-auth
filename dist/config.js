@@ -24,7 +24,8 @@ var config = {
   },
   prepData: function prepData(data) {
     return data;
-  }
+  },
+  social: []
 };
 var _default = config;
 exports["default"] = _default;

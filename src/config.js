@@ -15,6 +15,7 @@ const config = {
     post_url: '/api/auth/logout/',
   },
   prepData: (data) => data,
+  social: [],
 }
 
 export default config
