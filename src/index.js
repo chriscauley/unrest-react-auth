@@ -1,13 +1,15 @@
-import config from './config'
+import api from './api'
 import required from './required'
-import NavLink from './NavLink'
+import AuthNav from './AuthNav'
 import Routes from './Routes'
-import connect from './connect'
+
+const { use, markStale } = api
 
 export default {
-  config,
   required,
-  NavLink,
+  AuthNav,
   Routes,
-  connect,
+  use,
+  markStale,
+  connect: () => {throw "auth.connect pattern was removed in version 0.1"},
 }

@@ -9,31 +9,22 @@ var _react = _interopRequireDefault(require("react"));
 
 var _reactRouterDom = require("react-router-dom");
 
-var _Modal = require("./Modal");
-
-var _ResetPassword = _interopRequireDefault(require("./ResetPassword"));
-
-var _ResetPasswordConfirm = _interopRequireDefault(require("./ResetPasswordConfirm"));
-
-var _config = _interopRequireDefault(require("./config"));
+var _screens = _interopRequireDefault(require("./screens"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function AuthRoutes() {
   return /*#__PURE__*/_react["default"].createElement(_react["default"].Fragment, null, /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Route, {
-    exact: true,
-    path: [_config["default"].login.url, _config["default"].login.next_url],
-    component: _Modal.LoginModal
+    path: "/login/",
+    component: _screens["default"].Login
   }), /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Route, {
-    exact: true,
-    path: [_config["default"].signup.url, _config["default"].signup.next_url],
-    component: _Modal.SignupModal
+    path: "/signup/",
+    component: _screens["default"].SignUp
   }), /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Route, {
-    exact: true,
-    path: "/reset-password/",
-    component: _ResetPassword["default"]
+    path: "/password-reset/",
+    component: _screens["default"].PasswordReset
   }), /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Route, {
-    path: "/reset-password-confirm/:uidb64/:token/",
-    component: _ResetPasswordConfirm["default"]
+    path: "/reset/",
+    component: _screens["default"].CompletePasswordReset
   }));
 }
