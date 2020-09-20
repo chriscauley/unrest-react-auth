@@ -2,7 +2,6 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 import screens from './screens'
 
-
 export default function AuthRoutes() {
   return (
     <>

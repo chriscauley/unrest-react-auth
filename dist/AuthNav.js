@@ -13,6 +13,8 @@ var _core = require("@unrest/core");
 
 var _api = _interopRequireDefault(require("./api"));
 
+var _config = _interopRequireDefault(require("./config"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function AuthNav(_ref) {
@@ -24,13 +26,13 @@ function AuthNav(_ref) {
       user = _api$use.user,
       refetch = _api$use.refetch;
 
-  if (loading) {
+  if (loading || !_config["default"].enabled) {
     return null;
   }
 
   if (user) {
     var logout = function logout() {
-      return fetch('/api/logout/').then(function () {
+      return fetch('/api/auth/logout/').then(function () {
         return refetch();
       });
     };

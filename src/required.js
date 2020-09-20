@@ -12,14 +12,19 @@ const Http403 = ({ message }) => {
   )
 }
 
-
 export default (Component, options = {}) => {
   return function AuthRequired(props) {
     const location = useLocation()
     const auth = api.use()
     if (auth.user) {
       if (options.roles && !options.roles.includes(auth.user.role)) {
-        return <Http403 message={`Only "${options.roles.join(' or ')}" users can access this page.`}/>
+        return (
+          <Http403
+            message={`Only "${options.roles.join(
+              ' or ',
+            )}" users can access this page.`}
+          />
+        )
       }
       return <Component {...props} />
     }
