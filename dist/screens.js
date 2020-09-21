@@ -17,6 +17,8 @@ var _css = _interopRequireDefault(require("@unrest/css"));
 
 var _api = _interopRequireDefault(require("./api"));
 
+var _config = _interopRequireDefault(require("./config"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -31,51 +33,76 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+function AuthLink(slug, name, next) {
+  return /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Link, {
+    to: "/".concat(slug, "/?next=").concat(encodeURIComponent(next)),
+    className: _css["default"].link('mr-2')
+  }, name);
+}
+
 var links = {
-  login: /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Link, {
-    to: '/login/',
-    className: _css["default"].link('mr-2')
-  }, "Login"),
-  signup: /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Link, {
-    to: '/signup/',
-    className: _css["default"].link('mr-2')
-  }, "Sign Up"),
-  reset: /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Link, {
-    to: '/password-reset/',
-    className: _css["default"].link('mr-2')
-  }, "Reset Password")
+  Login: function Login(_ref) {
+    var next = _ref.next;
+    return AuthLink('login', 'Login', next);
+  },
+  Signup: function Signup(_ref2) {
+    var next = _ref2.next;
+    return AuthLink('signup', 'Signup', next);
+  },
+  Reset: function Reset(_ref3) {
+    var next = _ref3.next;
+    return AuthLink('password-reset', 'Reset Password', next);
+  }
 };
 
-function Wrapper(_ref) {
-  var title = _ref.title,
-      children = _ref.children;
+function Wrapper(_ref4) {
+  var title = _ref4.title,
+      children = _ref4.children;
   return /*#__PURE__*/_react["default"].createElement("div", {
     className: "max-w-lg mx-auto my-4"
   }, /*#__PURE__*/_react["default"].createElement("h2", null, title), children);
 }
 
 function Login() {
-  var success = useNext('You have been logged in.');
+  var _useNext = useNext('You have been logged in.'),
+      next = _useNext.next,
+      success = _useNext.success;
+
   return /*#__PURE__*/_react["default"].createElement(Wrapper, {
     title: "Please Login to Continue"
   }, /*#__PURE__*/_react["default"].createElement(_core.SchemaForm, {
     form_name: "LoginForm",
     onSuccess: success
+  }), /*#__PURE__*/_react["default"].createElement(_config["default"].LoginExtra, {
+    next: next
   }), /*#__PURE__*/_react["default"].createElement("div", {
     className: "text-center"
-  }, links.signup, links.reset));
+  }, /*#__PURE__*/_react["default"].createElement(links.Signup, {
+    next: next
+  }), /*#__PURE__*/_react["default"].createElement(links.Reset, {
+    next: next
+  })));
 }
 
 function SignUp() {
-  var success = useNext('Your account has been created and you have been logged in.');
+  var _useNext2 = useNext('Your account has been created and you have been logged in.'),
+      next = _useNext2.next,
+      success = _useNext2.success;
+
   return /*#__PURE__*/_react["default"].createElement(Wrapper, {
     title: "Create an Account"
   }, /*#__PURE__*/_react["default"].createElement(_core.SchemaForm, {
     form_name: "SignUpForm",
     onSuccess: success
+  }), /*#__PURE__*/_react["default"].createElement(_config["default"].SignupExtra, {
+    next: next
   }), /*#__PURE__*/_react["default"].createElement("div", {
     className: "text-center"
-  }, links.login, links.reset));
+  }, /*#__PURE__*/_react["default"].createElement(links.Login, {
+    next: next
+  }), /*#__PURE__*/_react["default"].createElement(links.Reset, {
+    next: next
+  })));
 }
 
 function PasswordReset() {
@@ -83,6 +110,9 @@ function PasswordReset() {
       _alert$useAlert2 = _slicedToArray(_alert$useAlert, 2),
       _ = _alert$useAlert2[0],
       success = _alert$useAlert2[1].success;
+
+  var _useNext3 = useNext(),
+      next = _useNext3.next;
 
   var onSuccess = function onSuccess() {
     return success('Check your email for further instructions.');
@@ -95,11 +125,17 @@ function PasswordReset() {
     onSuccess: onSuccess
   }), /*#__PURE__*/_react["default"].createElement("div", {
     className: "text-center"
-  }, links.login, links.signup));
+  }, /*#__PURE__*/_react["default"].createElement(links.Login, {
+    next: next
+  }), /*#__PURE__*/_react["default"].createElement(links.Signup, {
+    next: next
+  })));
 }
 
 function CompletePasswordReset() {
-  var success = useNext('Your password has been set and you have been logged in.');
+  var _useNext4 = useNext('Your password has been set and you have been logged in.'),
+      success = _useNext4.success;
+
   return /*#__PURE__*/_react["default"].createElement(Wrapper, {
     title: "Complete Password Reset"
   }, /*#__PURE__*/_react["default"].createElement(_core.SchemaForm, {
@@ -114,16 +150,20 @@ var useNext = function useNext(message) {
   var _alert$useAlert3 = _core.alert.useAlert(),
       _alert$useAlert4 = _slicedToArray(_alert$useAlert3, 2),
       _ = _alert$useAlert4[0],
-      success = _alert$useAlert4[1].success;
+      _success = _alert$useAlert4[1].success;
 
   var _api$use = _api["default"].use(),
       refetch = _api$use.refetch;
 
   var history = (0, _reactRouterDom.useHistory)();
-  return function () {
-    success(message);
-    refetch();
-    history.replace(next);
+  return {
+    next: next,
+    success: function success() {
+      _success(message);
+
+      refetch();
+      history.replace(next);
+    }
   };
 };
 

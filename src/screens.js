@@ -5,23 +5,20 @@ import { alert, SchemaForm } from '@unrest/core'
 import css from '@unrest/css'
 
 import api from './api'
+import config from './config'
+
+function AuthLink(slug, name, next) {
+  return (
+    <Link to={`/${slug}/?next=${encodeURIComponent(next)}`} className={css.link('mr-2')}>
+      {name}
+    </Link>
+  )
+}
 
 const links = {
-  login: (
-    <Link to={'/login/'} className={css.link('mr-2')}>
-      Login
-    </Link>
-  ),
-  signup: (
-    <Link to={'/signup/'} className={css.link('mr-2')}>
-      Sign Up
-    </Link>
-  ),
-  reset: (
-    <Link to={'/password-reset/'} className={css.link('mr-2')}>
-      Reset Password
-    </Link>
-  ),
+  Login: ({ next }) => AuthLink('login', 'Login', next),
+  Signup: ({ next }) => AuthLink('signup', 'Signup', next),
+  Reset: ({ next }) => AuthLink('password-reset', 'Reset Password', next),
 }
 
 function Wrapper({ title, children }) {
@@ -34,28 +31,28 @@ function Wrapper({ title, children }) {
 }
 
 function Login() {
-  const success = useNext('You have been logged in.')
+  const { next, success } = useNext('You have been logged in.')
   return (
     <Wrapper title="Please Login to Continue">
       <SchemaForm form_name="LoginForm" onSuccess={success} />
+      <config.LoginExtra next={next} />
       <div className="text-center">
-        {links.signup}
-        {links.reset}
+        <links.Signup next={next} />
+        <links.Reset next={next} />
       </div>
     </Wrapper>
   )
 }
 
 function SignUp() {
-  const success = useNext(
-    'Your account has been created and you have been logged in.',
-  )
+  const { next, success } = useNext('Your account has been created and you have been logged in.')
   return (
     <Wrapper title="Create an Account">
       <SchemaForm form_name="SignUpForm" onSuccess={success} />
+      <config.SignupExtra next={next} />
       <div className="text-center">
-        {links.login}
-        {links.reset}
+        <links.Login next={next} />
+        <links.Reset next={next} />
       </div>
     </Wrapper>
   )
@@ -63,22 +60,21 @@ function SignUp() {
 
 function PasswordReset() {
   const [_, { success }] = alert.useAlert()
+  const { next } = useNext()
   const onSuccess = () => success('Check your email for further instructions.')
   return (
     <Wrapper title="Password Reset">
       <SchemaForm form_name="PasswordResetForm" onSuccess={onSuccess} />
       <div className="text-center">
-        {links.login}
-        {links.signup}
+        <links.Login next={next} />
+        <links.Signup next={next} />
       </div>
     </Wrapper>
   )
 }
 
 function CompletePasswordReset() {
-  const success = useNext(
-    'Your password has been set and you have been logged in.',
-  )
+  const { success } = useNext('Your password has been set and you have been logged in.')
   return (
     <Wrapper title="Complete Password Reset">
       <SchemaForm form_name="SetPasswordForm" onSuccess={success} />
@@ -91,10 +87,13 @@ const useNext = (message) => {
   const [_, { success }] = alert.useAlert()
   const { refetch } = api.use()
   const history = useHistory()
-  return () => {
-    success(message)
-    refetch()
-    history.replace(next)
+  return {
+    next,
+    success: () => {
+      success(message)
+      refetch()
+      history.replace(next)
+    },
   }
 }
 

@@ -10,6 +10,8 @@ var _default = {
     signup: '/signup/',
     login: '/login',
     reset: '/password-reset/'
-  }
+  },
+  LoginExtra: null,
+  SignupExtra: null
 };
 exports["default"] = _default;

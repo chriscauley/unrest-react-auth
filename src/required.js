@@ -19,11 +19,7 @@ export default (Component, options = {}) => {
     if (auth.user) {
       if (options.roles && !options.roles.includes(auth.user.role)) {
         return (
-          <Http403
-            message={`Only "${options.roles.join(
-              ' or ',
-            )}" users can access this page.`}
-          />
+          <Http403 message={`Only "${options.roles.join(' or ')}" users can access this page.`} />
         )
       }
       return <Component {...props} />
