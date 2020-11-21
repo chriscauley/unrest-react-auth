@@ -18,9 +18,9 @@ export default function AuthNav({ links = [] }) {
   return (
     <div className="text-blue-700 underline text-lg">
       <Link to="/login/" className="mx-4">
-        Login
+        Log In
       </Link>
-      <Link to="/signup/">Sigup</Link>
+      <Link to="/signup/">Sign Up</Link>
     </div>
   )
 }

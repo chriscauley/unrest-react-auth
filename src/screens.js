@@ -16,8 +16,8 @@ function AuthLink(slug, name, next) {
 }
 
 const links = {
-  Login: ({ next }) => AuthLink('login', 'Login', next),
-  Signup: ({ next }) => AuthLink('signup', 'Signup', next),
+  Login: ({ next }) => AuthLink('login', 'Log In', next),
+  Signup: ({ next }) => AuthLink('signup', 'Sign Up', next),
   Reset: ({ next }) => AuthLink('password-reset', 'Reset Password', next),
 }
 

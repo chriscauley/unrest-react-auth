@@ -43,11 +43,11 @@ function AuthLink(slug, name, next) {
 var links = {
   Login: function Login(_ref) {
     var next = _ref.next;
-    return AuthLink('login', 'Login', next);
+    return AuthLink('login', 'Log In', next);
   },
   Signup: function Signup(_ref2) {
     var next = _ref2.next;
-    return AuthLink('signup', 'Signup', next);
+    return AuthLink('signup', 'Sign Up', next);
   },
   Reset: function Reset(_ref3) {
     var next = _ref3.next;

@@ -52,7 +52,7 @@ function AuthNav(_ref) {
   }, /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Link, {
     to: "/login/",
     className: "mx-4"
-  }, "Login"), /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Link, {
+  }, "Log In"), /*#__PURE__*/_react["default"].createElement(_reactRouterDom.Link, {
     to: "/signup/"
-  }, "Sigup"));
+  }, "Sign Up"));
 }
