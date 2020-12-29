@@ -11,7 +11,11 @@ var _default = {
     login: '/login',
     reset: '/password-reset/'
   },
-  LoginExtra: null,
-  SignupExtra: null
+  LoginExtra: function LoginExtra() {
+    return null;
+  },
+  SignupExtra: function SignupExtra() {
+    return null;
+  }
 };
 exports["default"] = _default;

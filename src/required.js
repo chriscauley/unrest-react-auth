@@ -22,7 +22,7 @@ export default (Component, options = {}) => {
           <Http403 message={`Only "${options.roles.join(' or ')}" users can access this page.`} />
         )
       }
-      return <Component {...props} />
+      return <Component {...props} auth={auth} />
     }
     if (auth.loading) {
       return null

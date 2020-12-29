@@ -5,6 +5,6 @@ export default {
     login: '/login',
     reset: '/password-reset/',
   },
-  LoginExtra: null,
-  SignupExtra: null,
+  LoginExtra: () => null,
+  SignupExtra: () => null,
 }
