@@ -59,7 +59,7 @@ function SignUp() {
 }
 
 function PasswordReset() {
-  const [_, { success }] = alert.useAlert()
+  const { success } = alert.use()
   const { next } = useNext()
   const onSuccess = () => success('Check your email for further instructions.')
   return (
@@ -84,7 +84,7 @@ function CompletePasswordReset() {
 
 const useNext = (message) => {
   const next = qs.parse(useLocation().search.replace(/^\?/, '')).next || '/'
-  const [_, { success }] = alert.useAlert()
+  const { success } = alert.use()
   const { refetch } = api.use()
   const history = useHistory()
   return {
